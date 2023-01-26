@@ -3,3 +3,9 @@
 
 # vscode workspace files
 *.code-workspace
+
+# local db files
+*.sqlite3
+
+# python cache
+*_pycache_*
