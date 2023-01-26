@@ -1,5 +1,6 @@
 import requests
 
+# *** Using an example endpoint ***
 endpoint = "https://httpbin.org/anything"
 # like your url. going to be many endpoints in an api project
 
