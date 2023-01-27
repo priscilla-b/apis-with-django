@@ -5,16 +5,19 @@ import json
 
 def api_home(request, *args, **kwargs):
     # print(dir(request))
-    body = request.body  # byte string of JSON data
-    print('body',body)
+    print(request.GET)  # shows the url query params
 
-    # data = json.loads(body)
-    # print('data', data)
+    body = request.body  # byte string of JSON data
+
+    try:
+        data = json.loads(body)
+    except:
+        data = {}
     
-    # try:
-    #     data = json.loads(body)
-    # except:
-    #     data = {}
-    #     print('empty data')
-    #     print(Exception)
-    return JsonResponse({"message":"Hi there, this is your Django API resonse!"})
+    data['params'] = dict(request.GET)
+    data['headers'] = dict(request.headers)
+    # headers are not json serializable by default so need to be converted to dict firs
+    data['content_type'] = request.content_type
+
+   
+    return JsonResponse(data)
