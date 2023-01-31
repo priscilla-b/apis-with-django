@@ -10,19 +10,35 @@ from products.models import Product
 from products.serializers import ProductSerializer
 
 
-# using model data with django rest framework serializers
-@api_view(["GET"])
+@api_view(["POST"])
 def api_home(request, *args, **kwargs):
-    """
-    DRF API view
-    """
-    instance = Product.objects.all().order_by('?').first()  # return random model object
-    data = {}
 
-    if instance:
-        data = ProductSerializer(instance).data
+    data = request.data  #api version of request.POST since we'll be sending in JSON data
+    serializer = ProductSerializer(data=data)
 
-    return Response(data)
+    if serializer.is_valid(raise_exception=True):
+        instance = serializer.save()
+        print(instance)
+        data = serializer.data
+        print(data)
+        return Response(data)
+    else:
+        return Response({'not valid': 'serializer is not valid'},status=400)
+
+
+# using model data with django rest framework serializers - get request
+# @api_view(["GET"])
+# def api_home(request, *args, **kwargs):
+#     """
+#     DRF API view
+#     """
+#     instance = Product.objects.all().order_by('?').first()  # return random model object
+#     data = {}
+
+#     if instance:
+#         data = ProductSerializer(instance).data
+
+#     return Response(data)
 
 
 
