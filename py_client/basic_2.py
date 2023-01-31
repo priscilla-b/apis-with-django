@@ -4,10 +4,10 @@ import requests
 
 endpoint = "http://localhost:8000/api/"
 
-get_response = requests.get(
+get_response = requests.post(
     endpoint,
     params={"abc":123},
-    json={"query":"hello world"}
+    json={"content":"hello world"}
     )  # regular http request
 
 # print(get_response.url)
