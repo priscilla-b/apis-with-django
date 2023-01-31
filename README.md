@@ -28,7 +28,11 @@ Source: [Coding for Entrepreneurs on Youtube](https://www.youtube.com/watch?v=c7
 
 ### On Django/DRF
 - To get a random object from a django model, you can do `ModelName.objects.all().order_by("?").first()`. Really cool!
-- Model serializers in DRF work very similar to how ModelForms work in Django
+- Model serializers in DRF work very similar to how ModelForms work in Django in addition to making model fields JSON serializeable.
+- You can serialize a model's methods and properties by calling their names in Meta.fields just like regular field names
+- You can have multiple serializers for the exact same model based on the shape/format you want to view model data
+- Also similar to Django forms, serializers can injest send data to the backend
+- Other thing that serializer does is verify data that has been sent in from a POST request (checks if request data matches the format set for the model data fields) before saving data to database. Similar to `form.is_valid()`
 
 
 
