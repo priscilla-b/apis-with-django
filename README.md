@@ -33,6 +33,7 @@ Source: [Coding for Entrepreneurs on Youtube](https://www.youtube.com/watch?v=c7
 - You can have multiple serializers for the exact same model based on the shape/format you want to view model data
 - Also similar to Django forms, serializers can injest send data to the backend
 - Other thing that serializer does is verify data that has been sent in from a POST request (checks if request data matches the format set for the model data fields) before saving data to database. Similar to `form.is_valid()`
+- Django and DRF generics (generic views) abstract away commonly used views and can be in place of writing basic views such as list and detail views. These are class based views and can be extended to add on or update its default methods/properties
 
 
 
