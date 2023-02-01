@@ -48,6 +48,7 @@ From DRF docs:
 - > `TokenAuthentication` is appropriate for client-server setups, such as native desktop and mobile clients.
 - > `SessionAuthentication` is appropriate for AJAX clients that are running in the same session context as your website.
 - Implemented a `TokenAuthentication` to give py_client access to the backend since it's not an AJAX client
+- *Why do we pass tokens to request headers?*
 
 #### Permissions
 - User/group-based permissions on a model can be enforced in a client by including `permissions.DjangoModelPermission` in the `permisson_classes` list in a generic api view. However permissions are only activated for `POST`, `PUT` and `DELETE` requests by default.
