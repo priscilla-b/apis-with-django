@@ -27,14 +27,32 @@ Source: [Coding for Entrepreneurs on Youtube](https://www.youtube.com/watch?v=c7
 
 
 ### On Django/DRF
+
+#### General
 - To get a random object from a django model, you can do `ModelName.objects.all().order_by("?").first()`. Really cool!
+
+#### Serializers
 - Model serializers in DRF work very similar to how ModelForms work in Django in addition to making model fields JSON serializeable.
 - You can serialize a model's methods and properties by calling their names in Meta.fields just like regular field names
 - You can have multiple serializers for the exact same model based on the shape/format you want to view model data
 - Also similar to Django forms, serializers can injest send data to the backend
 - Other thing that serializer does is verify data that has been sent in from a POST request (checks if request data matches the format set for the model data fields) before saving data to database. Similar to `form.is_valid()`
+
+#### Generics
 - Django and DRF generics (generic views) abstract away commonly used views and can be in place of writing basic views such as list and detail views. These are class based views and can be extended to add on or update its default methods/properties
 - There are some generics that combine views together: e.g. `ListCreateView`. Pretty cool. Makes sense when those views use the same endpoint
+
+### Authenticaton
+From DRF docs:
+- >Authentication is the mechanism of associating an incoming request with a set of identifying credentials, such as the user the request came from, or the token that it was signed with. The permission and throttling policies can then use those credentials to determine if the request should be permitted.
+- > `TokenAuthentication` is appropriate for client-server setups, such as native desktop and mobile clients.
+- > `SessionAuthentication` is appropriate for AJAX clients that are running in the same session context as your website.
+- Implemented a `TokenAuthentication` to give py_client access to the backend since it's not an AJAX client
+
+#### Permissions
+- User/group-based permissions on a model can be enforced in a client by including `permissions.DjangoModelPermission` in the `permisson_classes` list in a generic api view. However permissions are only activated for `POST`, `PUT` and `DELETE` requests by default.
+- To support `GET` requests or support other custom behaviours, you can create a custom model permissions by overriding the django model permissions. You can override the `perms_map` defined in the `DjangoModelPermission` class to give "view" permissions or provide custom permission codes
+
 
 
 
