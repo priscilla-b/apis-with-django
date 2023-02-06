@@ -39,7 +39,7 @@ Source: [Coding for Entrepreneurs on Youtube](https://www.youtube.com/watch?v=c7
 - Other thing that serializer does is verify data that has been sent in from a POST request (checks if request data matches the format set for the model data fields) before saving data to database. Similar to `form.is_valid()`
 
 #### Generics
-- Django and DRF generics (generic views) abstract away commonly used views and can be in place of writing basic views such as list and detail views. These are class based views and can be extended to add on or update its default methods/properties
+- Django and DRF generics (generic views) abstract away commonly used views and can be used in place of writing basic views such as list and detail views. These are class based views and can be extended to add on or update their default methods/properties
 - There are some generics that combine views together: e.g. `ListCreateView`. Pretty cool. Makes sense when those views use the same endpoint
 
 ### Authenticaton
@@ -48,7 +48,16 @@ From DRF docs:
 - > `TokenAuthentication` is appropriate for client-server setups, such as native desktop and mobile clients.
 - > `SessionAuthentication` is appropriate for AJAX clients that are running in the same session context as your website.
 - Implemented a `TokenAuthentication` to give py_client access to the backend since it's not an AJAX client
-- *Why do we pass tokens to request headers?*
+- *Why do we pass tokens to request headers?* 
+    - to authenticaticate the user making a particular request, we need to send a token(that proves the credibility of the user?) as part of the request to the server. 
+    - Tokens are created at the server side and stored in a database temporarily.
+    - When making a request, token passed in the request should match what's stored with the server to authenticate the user
+    - Tokens can be passed to the other parts of a request like the body. However different request types (GET, POST, etc.) could have different body formats, making things unnecessarily complicated on the client side. 
+    - Headers are therefore perfect to hold such data as they are independent of request type.([source](https://stackoverflow.com/questions/40902970/why-do-we-prefer-authorization-header-to-send-bearer-token-to-server-over-other))
+- when a token is deleted, the user's authentication is invalidated and they'd need to log back in to get a new token created.
+- by default, the `Token` model from `django_restframework.authtoken.models` does not enforce a key expiration.
+- to manage that, you can extend the model to add an expiration date, or you can use third party packages(available in DRF) to manage token expiration and deletion
+- the expiration time for a token depends on what it is being used for. If a token being used for a GET request for example, it's not necessary to change it very often.
 
 #### Permissions
 - User/group-based permissions on a model can be enforced in a client by including `permissions.DjangoModelPermission` in the `permisson_classes` list in a generic api view. However permissions are only activated for `POST`, `PUT` and `DELETE` requests by default.
