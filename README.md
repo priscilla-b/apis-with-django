@@ -58,6 +58,7 @@ From DRF docs:
 - by default, the `Token` model from `django_restframework.authtoken.models` does not enforce a key expiration.
 - to manage that, you can extend the model to add an expiration date, or you can use third party packages(available in DRF) to manage token expiration and deletion
 - the expiration time for a token depends on what it is being used for. If a token being used for a GET request for example, it's not necessary to change it very often.
+- instead of repeating particular authentication and permisison classes in each view, you can set default permissions and authentication classes for the entire project by including them in the `REST_FRAMEWORK` namespace in your django project settings
 
 #### Permissions
 - User/group-based permissions on a model can be enforced in a client by including `permissions.DjangoModelPermission` in the `permisson_classes` list in a generic api view. However permissions are only activated for `POST`, `PUT` and `DELETE` requests by default.
