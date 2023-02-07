@@ -5,18 +5,20 @@ from django.shortcuts import get_object_or_404
 # from django.http import Http404
 
 from api.authentication import TokenAuthentication
+# from api.permissions import IsStaffEditorPermission
+from api.mixins import StaffEditorPermissionMixin
 
 from .models import Product
 from .serializers import ProductSerializer
-from .permissions import IsStaffEditorPermission
 
 
 
-class ProductListCreateApiView(generics.ListCreateAPIView):
+
+class ProductListCreateApiView(generics.ListCreateAPIView,StaffEditorPermissionMixin):
     # can combine list and create views if using the same endpoint
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
+    # permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
     def perform_create(self, serializer):
         # serializer.save(user=self.request.user)
@@ -28,17 +30,17 @@ class ProductListCreateApiView(generics.ListCreateAPIView):
         serializer.save(content=content)
 
    
-class ProductDetailApiView(generics.RetrieveAPIView):
+class ProductDetailApiView(generics.RetrieveAPIView, StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsStaffEditorPermission]
+    # permission_classes = [IsStaffEditorPermission]
     # lookup_field = 'pk'
 
-class ProductUpdateApiView(generics.UpdateAPIView):
+class ProductUpdateApiView(generics.UpdateAPIView, StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
-    permission_classes = [IsStaffEditorPermission]
+    # permission_classes = [IsStaffEditorPermission]
     
     def perform_update(self, serializer):
         instance = serializer.save()
@@ -47,11 +49,11 @@ class ProductUpdateApiView(generics.UpdateAPIView):
             instance.save()
 
 
-class ProductDestroyApiView(generics.DestroyAPIView):
+class ProductDestroyApiView(generics.DestroyAPIView, StaffEditorPermissionMixin):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
-    permission_classes = [IsStaffEditorPermission]
+    # permission_classes = [IsStaffEditorPermission]
     
     def perform_destroy(self, instance):
         return super().perform_destroy(instance)
