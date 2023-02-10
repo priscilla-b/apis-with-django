@@ -66,7 +66,10 @@ From DRF docs:
 - User/group-based permissions on a model can be enforced in a client by including `permissions.DjangoModelPermission` in the `permisson_classes` list in a generic api view. However permissions are only activated for `POST`, `PUT` and `DELETE` requests by default.
 - To support `GET` requests or support other custom behaviours, you can create a custom model permissions by overriding the django model permissions. You can override the `perms_map` defined in the `DjangoModelPermission` class to give "view" permissions or provide custom permission codes
 - You can use mixins to hold various permissions classes that will be repeated in parts of your project and not the entire project. You then add the mixin to the view class that you want the permission classes to apply to.
-- *Mixins are a great way to avoid writing repeatable code*
+
+#### Mixins
+- Mixins are a great way to avoid writing repeatable code
+- If you find yourself repeating a certain logic across view classes, you can put that logic in a mixin and then use them as base in the classes that they apply to. e.g. logic to filter a queryset based on the logged in user can be repeatable across views. You can put that logic in a custom user query mixin and then use the mixin in the various views that need it.
 
 
 #### ViewSets
