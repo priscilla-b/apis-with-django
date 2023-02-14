@@ -23,6 +23,7 @@ class ProductListCreateApiView(
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
+    # allow_staff_view = False
 
     def perform_create(self, serializer):
         # serializer.save(user=self.request.user)
