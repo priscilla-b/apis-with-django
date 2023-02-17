@@ -9,3 +9,6 @@
 
 # python cache
 *_pycache_*
+
+# auth files
+creds.json
