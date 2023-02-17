@@ -9,13 +9,13 @@ import json
 class JWTClient:
     """
     Use a dataclass decorator
-    to simply the class construction
+    to simplIFY the class construction
     """
     access:str = None
     refresh:str = None
     # ensure this matches your simplejwt config
     header_type: str = "Bearer"
-    # this assumesy ou have DRF running on localhost:8000
+    # this assumes you have DRF running on localhost:8000
     base_endpoint = "http://localhost:8000/api"
     # this file path is insecure
     cred_path: pathlib.Path = pathlib.Path("creds.json")
@@ -191,11 +191,12 @@ if __name__ == "__main__":
     # simple instance method to perform an HTTP
     # request to our /api/products/ endpoint
     lookup_1_data = client.list(limit=5)
+    print('lookup_1_data', lookup_1_data)
     # We used pagination at our endpoint so we have:
-    results = lookup_1_data.get('results')
-    next_url = lookup_1_data.get('next')
-    print("First lookup result length", len(results))
-    if next_url:
-        lookup_2_data = client.list(endpoint=next_url)
-        results += lookup_2_data.get('results')
-        print("Second lookup result length", len(results))
+    # results = lookup_1_data.get('results')
+    # next_url = lookup_1_data.get('next')
+    # print("First lookup result length", len(results))
+    # if next_url:
+        # lookup_2_data = client.list(endpoint=next_url)
+        # results += lookup_2_data.get('results')
+        # print("Second lookup result length", len(results))
